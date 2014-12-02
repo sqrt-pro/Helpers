@@ -1,6 +1,6 @@
 <?php
 
-namespace SQRT;
+namespace SQRT\Helpers;
 
 class Filter
 {

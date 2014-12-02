@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../init.php';
 
-use SQRT\Filter;
+use SQRT\Helpers\Filter;
 
 class filterTest extends PHPUnit_Framework_TestCase
 {
