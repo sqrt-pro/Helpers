@@ -51,42 +51,56 @@ class RussianTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider dataDate
    */
-  function testDateFormat($exp, $format, $date = null)
+  function testDateFormat($format, $timestamp, $date = null)
   {
+    $exp = strftime($format, $timestamp);
+
     $this->assertEquals($exp, Russian::DateFormat($format, $date));
   }
 
   function dataDate()
   {
     return array(
-      array(' 1 января 2014 - среда', '%e %B %Y - %A', strtotime('2014-01-01')),
-      array('05 дек, сб.', '%d %b, %a.', '5.12.2015'),
-      array(strftime('%d.%m.%Y'), '%d.%m.%Y'),
+      array('%e %B %Y - %A', strtotime('2014-01-01'), strtotime('2014-01-01')),
+      array('%d %b, %a.', strtotime('2015-12-05'), '5.12.2015'),
+      array('%d.%m.%Y', time()),
     );
   }
 
   function testDateShort()
   {
-    $this->assertEquals('12 апр 2015', Russian::DateShort('12.04.2015 12:45'));
-    $this->assertEquals('12 апр 2015 12:45', Russian::DateShort('12.04.2015 12:45', true));
+    $d = '12.04.2015 12:45';
+    $t = strtotime($d);
+
+    $this->assertEquals(strftime('%d %b %Y', $t), Russian::DateShort($d));
+    $this->assertEquals(strftime('%d %b %Y %k:%M', $t), Russian::DateShort($d, true));
   }
 
   function testDate()
   {
-    $this->assertEquals('12 апреля 2015', Russian::Date('12.04.2015 12:45'));
-    $this->assertEquals('12 апреля 2015 12:45', Russian::Date('12.04.2015 12:45', true));
+    $d = '12.04.2015 12:45';
+    $t = strtotime($d);
+
+    $this->assertEquals(strftime('%d %B %Y', $t), Russian::Date($d));
+    $this->assertEquals(strftime('%d %B %Y %k:%M', $t), Russian::Date($d, true));
   }
 
   function testDayOfWeek()
   {
-    $this->assertEquals('воскресенье', Russian::DayOfWeek('12.04.2015'));
-    $this->assertEquals('вс', Russian::DayOfWeek('12.04.2015', true));
+    $d = '12.04.2015 12:45';
+    $t = strtotime($d);
+
+    $this->assertEquals(strftime('%A', $t), Russian::DayOfWeek($d));
+    $this->assertEquals(strftime('%a', $t), Russian::DayOfWeek($d, true));
   }
 
   function testMonth()
   {
-    $this->assertEquals('апрель', Russian::Month('12.04.2015'));
-    $this->assertEquals('апр', Russian::Month('12.04.2015', true));
+    $d = '12.04.2015 12:45';
+    $t = strtotime($d);
+
+    $this->assertEquals(strftime('%OB', $t), Russian::Month($d));
+    $this->assertEquals(strftime('%b', $t), Russian::Month($d, true));
   }
 
   public static function setUpBeforeClass()
