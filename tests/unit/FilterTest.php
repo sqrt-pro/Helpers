@@ -2,7 +2,7 @@
 
 use SQRT\Helpers\Filter;
 
-class filterTest extends PHPUnit_Framework_TestCase
+class FilterTest extends PHPUnit_Framework_TestCase
 {
   /**
    * @dataProvider dataFilter
