@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../init.php';
-
 use SQRT\Helpers\Container;
 
 class ContainerTest extends PHPUnit_Framework_TestCase
